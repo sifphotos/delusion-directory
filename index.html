@@ -758,7 +758,7 @@ WEB  theirsite.com</p>
 
   async function api(body) {
     var last;
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 8; i++) {
       try {
         var r = await fetch(API, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
         var txt = await r.text();
@@ -771,6 +771,7 @@ WEB  theirsite.com</p>
         if (e instanceof FatalError) throw e;
         last = e;
       }
+      if (i >= 1 && $('progText')) $('progText').textContent = 'lots of people submitting right now. hang tight, you\'re in line and nothing is lost…';
       await sleep(Math.min(12000, 700 * Math.pow(2, i)) + Math.random() * 900);
     }
     throw last || new Error('network');
